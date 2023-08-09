@@ -14,3 +14,12 @@ function divide(a, b) {
     return a / b;
 }
 
+function operate(a, b, operator) {
+    let functions = {
+        "+": add,
+        "-": subtract,
+        "*": multiply,
+        "/": divide,
+    }
+    return functions[operator](a, b);
+}
