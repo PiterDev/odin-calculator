@@ -1,3 +1,4 @@
+const maxDisplayLength = 10;
 let display = "";
 
 let firstNum = "";
@@ -47,12 +48,25 @@ function resetValues() {
 
 function updateDisplay() {
     let displayDiv = document.querySelector(".display");
+    
+    if (display.length > 10) {
+        let [beforeDecimal, afterDecimal] = display.split(".");
+        let hasToRemove = display.length - maxDisplayLength
+        if (afterDecimal >= hasToRemove) {
+            display = Number(display).toFixed(afterDecimal.length-hasToRemove).toString();
+        } else {
+            displayDiv.innerText = "Oops";
+            resetValues()
+            return;
+        }
+    }
+
     if (display.includes("NaN") || display.includes("Infinity")) {
         displayDiv.innerText = "Oops";
         resetValues()
     } else {
         displayDiv.innerText = display;
-    }
+    }    
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -87,7 +101,7 @@ function buttonClicked(event) {
             pickedOperator = buttonKey;
         }
     } else {
-        if (!(buttonKey === "." && display.includes("."))) {
+        if (!(buttonKey === "." && display.includes(".")) && display.length < 10) {
             if (!pickedOperator) {
                 firstNum += buttonKey;
                 display = firstNum;
