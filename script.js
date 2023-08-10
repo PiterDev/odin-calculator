@@ -66,7 +66,11 @@ function updateDisplay() {
         resetValues()
     } else {
         displayDiv.innerText = display;
-    }    
+    }
+
+    if (!display) {
+        displayDiv.innerText = "0";
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
