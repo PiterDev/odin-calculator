@@ -38,14 +38,18 @@ function isSpecial(string) {
     return ["C", "="].includes(string);
 }
 
+function resetValues() {
+    display = "";
+    firstNum = "";
+    secondNum = "";
+    pickedOperator = "";
+}
+
 function updateDisplay() {
     let displayDiv = document.querySelector(".display");
     if (display.includes("NaN") || display.includes("Infinity")) {
         displayDiv.innerText = "Oops";
-        display = "";
-        firstNum = "";
-        secondNum = "";
-        pickedOperator = "";
+        resetValues()
     } else {
         displayDiv.innerText = display;
     }
@@ -60,10 +64,7 @@ function buttonClicked(event) {
     let buttonKey = this.dataset.key;
     if (isSpecial(buttonKey)) {
         if (buttonKey === "C") {
-            display = "";
-            firstNum = "";
-            secondNum = "";
-            pickedOperator = "";
+            resetValues()
         } else if (buttonKey === "=") {
             if (firstNum && secondNum && pickedOperator) {
                 display = operate(firstNum, secondNum, pickedOperator);
